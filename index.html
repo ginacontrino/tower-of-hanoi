@@ -1,0 +1,90 @@
+<html>
+  <head>          
+    <meta charset="utf-8">
+    <title>Tower of hanoi</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      header {
+        font-size: 20px;
+      }
+
+      .wrapper {
+        flex-direction: row;
+        display: flex;
+      }
+
+      .tower {
+        display: flex;
+        flex-direction: column-reverse;
+        margin: 0px 50px 0px 50px; 
+        width: 10px; 
+        height: 120px;
+        background: #b1b1b1;
+      }
+
+      .discs {
+        height: 15px; 
+        color: white;
+        position: relative;
+        border-radius: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <header></header>
+
+    <div id="app" class="wrapper">
+      <div v-for="tower in towers" class="tower">
+
+        <div v-for="disc in tower" class="discs" 
+            :style="{ background: colors[disc], width: ((40 * (disc + 1)) / 2) + 'px', left: '-' + (5 + (disc * 10)) + 'px' }"></div>
+      </div>
+    </div>
+  </body>
+
+  <script type="text/babel">
+    const towers = {
+      a: [3, 2, 1, 0],
+      b: [], 
+      c: []
+    };
+
+    function towerOfHanoi(n, from, to, aux) {
+      if (n == 0) return Promise.resolve();
+      
+      return towerOfHanoi(n-1, from, aux, to)
+        .then(() => move(from, to))
+        .then(() => towerOfHanoi(n-1, aux, to, from));
+    }
+
+    function move(from, to) {
+      return new Promise(resolve => { 
+        setTimeout(() => {
+          towers[to].push(towers[from].pop())
+          resolve();
+        }, 1000)
+      })
+    }
+
+    new Vue({
+      el: '#app',
+      data: {
+        colors: ['#FFE45C', '#FFB95C', '#FF7B5C', '#DF5183'],
+        towers,
+      },
+      mounted() {
+        towerOfHanoi(towers.a.length, 'a', 'b', 'c');
+      }
+    })
+
+  </script>
+</html>
