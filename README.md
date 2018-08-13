@@ -12,4 +12,4 @@ As explained on [Wikipedia](https://en.wikipedia.org/wiki/Tower_of_Hanoi):
 > - Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod.
 > - No disk may be placed on top of a smaller disk.
 >
-> With 3 disks, the puzzle can be solved in 7 moves. The minimal number of moves required to solve a Tower of Hanoi puzzle is 2^(n − 1), where n is the number of disks."
+> With 3 disks, the puzzle can be solved in 7 moves. The minimal number of moves required to solve a Tower of Hanoi puzzle is 2^n − 1, where n is the number of disks."
